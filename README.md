@@ -66,14 +66,3 @@ Full-Stack Flipkart with Admin Dashboard & Paytm Payment Gateway.
     <td><img src="https://user-images.githubusercontent.com/64949957/153996577-57b1a82d-064a-49dc-9055-e2bceb854ab2.PNG" alt="mockups" /></td>
   </tr>
 </table>
-
-<h2>📬 Contact</h2>
-
-If you want to contact me, you can reach me through below handles.
-
-[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jigar-sable)
-
-© 2022 Jigar Sable
-
-
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
