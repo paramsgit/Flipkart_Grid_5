@@ -16,6 +16,12 @@ const productSchema = new mongoose.Schema({
             required: true
         }
     ],
+    subcategory: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     specifications: [
         {
             title: {
