@@ -12,7 +12,7 @@ const connectionParams={
     useCreateIndex: true,
     useUnifiedTopology: true 
 }
-mongoose.connect(process.env.DB_URI)
+mongoose.connect(process.env.DB_LOC)
     .then( () => {
         console.log('Connected to database ')
     })

@@ -22,3 +22,34 @@ body {
     background-repeat: no-repeat;
 }
 /* login signup sidebar bg image */
+.bg-primary-blue{
+  background-color: #2874f0;
+
+}
+.text-primary-blue{
+  color: #2874f0;
+}
+.bg-primary-orange{
+  background-color:#fb641b;
+}
+.text-primary-orange{
+  color:#fb641b;
+}
+.bg-primary-darkBlue{
+  background-color:#172337;
+}
+.text-primary-darkBlue{
+  color:#172337;
+}
+.bg-primary-yellow{
+  background-color:#ff9f00;
+}
+.text-primary-yellow{
+  color:#ff9f00;
+}
+.bg-primary-green{
+  background-color:#25a240;
+}
+.text-primary-green{
+  color:#25a240;
+}

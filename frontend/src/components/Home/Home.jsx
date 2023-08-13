@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, getSliderProducts } from '../../actions/productAction';
 import { useSnackbar } from 'notistack';
 import MetaData from '../Layouts/MetaData';
-
+import { Canvas } from './canvas/canvas';
 const Home = () => {
 
   const dispatch = useDispatch();
@@ -25,6 +25,8 @@ const Home = () => {
 
   return (
     <>
+      
+    
       <MetaData title="Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!" />
       <Categories />
       <main className="flex flex-col gap-3 px-2 mt-16 sm:mt-2">
@@ -35,6 +37,7 @@ const Home = () => {
         {!loading && <ProductSlider title={"You May Also Like..."} tagline={"Based on Your Interest"} />}
         <DealSlider title={"Top Offers On"} />
         {!loading && <ProductSlider title={"Don't Miss These!"} tagline={"Inspired by your order"} />}
+        <Canvas/>
       </main>
     </>
   );
