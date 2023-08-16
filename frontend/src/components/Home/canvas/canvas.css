@@ -166,7 +166,6 @@
   }
   .chat-logs {
     padding:15px; 
-    /* height:420px; */
     height: 100%;
     overflow-y:scroll;
   }
