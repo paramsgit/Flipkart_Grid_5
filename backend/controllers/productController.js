@@ -383,3 +383,66 @@ exports.genoutfit = asyncErrorHandler(async (req, res, next) => {
     res.json(filteredProducts)
   
 });
+
+exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
+    // Get the outfit object from the request body
+    // const { topwear, bottomwear, footwear, accessories } = req.body;
+    const model_response={ "topwear": {"category": "T-Shirt","subcategory": "Oversized","color":"White","tags":["Party","Stylish"]},"bottomwear": {"category": "Jeans","subcategory": "Straight","color":"Black","tags":["Straight"]},"footwear": {"category": "Shoes","subcategory": "Big","color":"Blue","tags":["Comfortable"]},"accessories": [{"category": "Watch","subcategory": "Smartwatch","color":"Black","tags":["Water Resistant"]},{"category": "Belt","subcategory": "Leather Belt","color":"brown","tags":["stylish"]}]}
+
+
+    const topwear = await Product.find({
+        $and: [
+            { "specifications": { $elemMatch: { "title": "Category", "description": model_response.topwear.category } } },
+            { "specifications": { $elemMatch: { "title": "Subcategory", "description": model_response.topwear.subcategory } } },
+           
+          ],
+        "color":model_response.topwear.color,
+        "highlights": { $in: model_response.topwear.tags } 
+        
+          
+      }).sort({ "highlights": -1 });
+
+    const bottomwear = await Product.find({
+        $and: [
+            { "specifications": { $elemMatch: { "title": "Category", "description": model_response.bottomwear.category } } },
+            { "specifications": { $elemMatch: { "title": "Subcategory", "description": model_response.bottomwear.subcategory } } },
+           
+          ],
+        "color":model_response.bottomwear.color,
+        "highlights": { $in: model_response.bottomwear.tags } 
+        
+          
+      }).sort({ "highlights": -1 });
+    const footwear = await Product.find({
+        $and: [
+            { "specifications": { $elemMatch: { "title": "Category", "description": model_response.footwear.category } } },
+            { "specifications": { $elemMatch: { "title": "Subcategory", "description": model_response.footwear.subcategory } } },
+           
+          ],
+        "color":model_response.footwear.color,
+        "highlights": { $in: model_response.footwear.tags } 
+        
+          
+      }).sort({ "highlights": -1 });
+
+    const accessories=[]
+
+      for(let i=0;i<model_response.accessories.length;i++){
+ 
+        let a2 = await Product.find({
+            $and: [
+                { "specifications": { $elemMatch: { "title": "Category", "description": model_response.accessories[i].category } } },
+                { "specifications": { $elemMatch: { "title": "Subcategory", "description": model_response.accessories[i].subcategory } } },
+               
+              ],
+            "color":model_response.accessories[i].color,
+            "highlights": { $in: model_response.accessories[i].tags } 
+            
+              
+          }).sort({ "highlights": -1 });
+
+          accessories.push(a2); }
+    
+    res.json({"response":true,topwear,bottomwear,footwear,accessories})
+  
+});

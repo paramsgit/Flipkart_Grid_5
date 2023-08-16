@@ -4,9 +4,73 @@ import shining_cloth from '../../../assets/images/clean-clothes.png'
 
 export const Canvas = () => {
     const [isChatBoxOpen, setIsChatBoxOpen] = useState(false);
-    
+    const [chatlogs, setchatlogs] = useState();
+    const [loadingon, setloadingon] = useState(false);
+ 
+
 const chattoggler=()=>{
     setIsChatBoxOpen(!isChatBoxOpen);
+}
+
+function scrolldwon(){
+  document.getElementById('chatlogs').scrollTop=document.getElementById('chatlogs').scrollHeight
+}
+
+const handlesend=async(e)=>{
+  e.preventDefault();
+  
+let chatinput=document.getElementById('chat-input').value
+console.log(chatinput)
+
+ const find_product=async()=>{
+ 
+  const response=await fetch(`http://localhost:4000/api/v1/getoutfit`,{
+    method:'post',
+    headers:{
+        'Content-Type':'application/json',
+    },
+    
+});
+let json=await response.json();
+console.log(json)
+let ch_lg=document.getElementById('cth_here');
+let gridelly=`<div class="grid grid-cols-2 gap-2">`
+
+if(json.topwear.length){
+  console.log(json.topwear[0].images[0].url)
+  gridelly=gridelly+`<div class='fou_div'>
+  <img class="h-auto max-w-full rounded-lg" src="${json.topwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+</div>`
+
+}
+if(json.bottomwear.length){
+  console.log(json.bottomwear[0].images[0].url)
+  gridelly=gridelly+`<div class='fou_div'>
+  <img class="h-auto max-w-full rounded-lg" src="${json.bottomwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+</div>`
+}
+if(json.footwear.length){
+  console.log(json.footwear[0].images[0].url)
+  gridelly=gridelly+`<div class='fou_div'>
+  <img class="h-auto max-w-full rounded-lg" src="${json.footwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+</div>`
+}
+if(json.accessories.length){
+  console.log(json.accessories[0][0].images[0].url)
+  gridelly=gridelly+`<div class='fou_div'>
+  <img class="h-auto max-w-full rounded-lg" src="${json.accessories[0][0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+</div>`
+}
+
+gridelly=gridelly+`</div>`
+setloadingon(false)
+ch_lg.innerHTML=ch_lg.innerHTML+gridelly;
+ }
+ setloadingon(true)
+ 
+ setTimeout(find_product, 2000);
+ setTimeout( scrolldwon,10)
+
 }
 
   return (
@@ -21,7 +85,7 @@ const chattoggler=()=>{
   <img src={shining_cloth} className='shining_cloth_icon' alt="Outfit" />
 	</div>
 
-    <div  className={isChatBoxOpen?'chat-box ':'chat-box displaynone'}>
+    <div  className={isChatBoxOpen?'chat-box ':'chat-box displaynone2'}>
     <div className="chat-box-header">
       Outfit Generator
       <span  onClick={chattoggler} className="chat-box-toggle">
@@ -34,29 +98,50 @@ const chattoggler=()=>{
     <div className="chat-box-body">
       <div className="chat-box-overlay">   
       </div>
-      <div className="chat-logs">
-       
-<div class="grid grid-cols-2 gap-2">
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Outfit" />
+      <div className="chat-logs" id='chatlogs'>
+      <div className="cth_here" id='cth_here'>
+
+</div>
+     <div class={loadingon?'loading':'displaynone'}>
+     <div className="grid grid-cols-2 gap-2">
+
+     <div className='fou_div animated-background'>
+            <img className="h-auto max-w-full rounded-lg" style={{opacity:"0"}} src="https://res.cloudinary.com/dcbyjkq82/image/upload/v1692114367/products/ntlmbu9aa0vaagqn6ftx.png" alt="Outfit" />
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Outfit" />
+        <div className='fou_div animated-background2'>
+            <img className="h-auto max-w-full rounded-lg" style={{opacity:"0"}} src="https://res.cloudinary.com/dcbyjkq82/image/upload/v1692114367/products/ntlmbu9aa0vaagqn6ftx.png" alt="Outfit" />
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Outfit" />
+        <div className='fou_div animated-background4'>
+            <img className="h-auto max-w-full rounded-lg" style={{opacity:"0"}} src="https://res.cloudinary.com/dcbyjkq82/image/upload/v1692114367/products/ntlmbu9aa0vaagqn6ftx.png" alt="Outfit" />
         </div>
-        <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Outfit" />
+        <div className='fou_div animated-background3'>
+            <img className="h-auto max-w-full rounded-lg" style={{opacity:"0"}} src="https://res.cloudinary.com/dcbyjkq82/image/upload/v1692114367/products/ntlmbu9aa0vaagqn6ftx.png" alt="Outfit" />
         </div>
-    </div>
+</div>
+</div>
+
+{/* <div className="grid grid-cols-2 gap-2">
+
+        <div className='fou_div'>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="Outfit" />
+        </div>
+        <div className='fou_div'>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="Outfit" />
+        </div>
+        <div className='fou_div'>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="Outfit" />
+        </div>
+        <div className='fou_div'>
+            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="Outfit" />
+        </div>
+    </div> */}
 
       </div>
     </div>
     <div className="chat-input">      
       <form>
-        <input type="text" id="chat-input" placeholder="Send a message..."/>
-      <button type="submit" className={isChatBoxOpen?'chat-submit':'chat-submit displaynone'} id="chat-submit"><i className="material-icons">send</i></button>
+        <input required='true' type="text" id="chat-input" placeholder="Send a message..."/>
+      <button type="submit" onClick={handlesend} className={isChatBoxOpen?'chat-submit':'chat-submit displaynone'} id="chat-submit"><i className="material-icons">send</i></button>
       </form>      
     </div>
   </div>
