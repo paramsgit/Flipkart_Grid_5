@@ -11,6 +11,23 @@ export const Canvas = () => {
 const chattoggler=()=>{
     setIsChatBoxOpen(!isChatBoxOpen);
 }
+const functiontosetload=()=>{
+  setloadingon(true)
+}
+const functiontoaddbotmessage=(m)=>{
+  document.getElementById('cth_here').innerHTML=document.getElementById('cth_here').innerHTML+`<div class="bot_message">
+  <div class="bot_mess message_last">
+  Sure, We're finding outfit for you
+  </div>
+</div>`
+}
+const functiontoaddusermessage=(m)=>{
+  document.getElementById('cth_here').innerHTML=document.getElementById('cth_here').innerHTML+`<div class="user_message">
+  <div class="user_mess message_last">
+   ${m}
+  </div>
+  </div>`
+}
 
 function scrolldwon(){
   document.getElementById('chatlogs').scrollTop=document.getElementById('chatlogs').scrollHeight
@@ -18,58 +35,69 @@ function scrolldwon(){
 
 const handlesend=async(e)=>{
   e.preventDefault();
+  const find_product=async()=>{
+ 
+    const response=await fetch(`http://localhost:4000/api/v1/getoutfit`,{
+      method:'post',
+      headers:{
+          'Content-Type':'application/json',
+      },
+      
+  });
+  let json=await response.json();
+  console.log(json)
+  let ch_lg=document.getElementById('cth_here');
+  let gridelly=`<div class="grid grid-cols-2 gap-2">`
   
+  if(json.topwear.length){
+    console.log(json.topwear[0].images[0].url)
+    gridelly=gridelly+`<div class='fou_div'>
+    <img class="h-auto max-w-full rounded-lg" src="${json.topwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+  </div>`
+  
+  }
+  if(json.bottomwear.length){
+    console.log(json.bottomwear[0].images[0].url)
+    gridelly=gridelly+`<div class='fou_div'>
+    <img class="h-auto max-w-full rounded-lg" src="${json.bottomwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+  </div>`
+  }
+  if(json.footwear.length){
+    console.log(json.footwear[0].images[0].url)
+    gridelly=gridelly+`<div class='fou_div'>
+    <img class="h-auto max-w-full rounded-lg" src="${json.footwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+  </div>`
+  }
+  if(json.accessories.length){
+    console.log(json.accessories[0][0].images[0].url)
+    gridelly=gridelly+`<div class='fou_div'>
+    <img class="h-auto max-w-full rounded-lg" src="${json.accessories[0][0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+  </div>`
+  }
+  
+  gridelly=gridelly+`</div>`
+  setloadingon(false)
+  ch_lg.innerHTML=ch_lg.innerHTML+gridelly;
+   }
 let chatinput=document.getElementById('chat-input').value
-console.log(chatinput)
+if(chatinput.length==0){
 
- const find_product=async()=>{
+  
+}
+else{
+
+  functiontoaddusermessage(chatinput);
+setTimeout( scrolldwon,0)
+setTimeout( functiontoaddbotmessage,1000)
+setTimeout( scrolldwon,1000)
+setTimeout( functiontosetload,1500)
+  
  
-  const response=await fetch(`http://localhost:4000/api/v1/getoutfit`,{
-    method:'post',
-    headers:{
-        'Content-Type':'application/json',
-    },
-    
-});
-let json=await response.json();
-console.log(json)
-let ch_lg=document.getElementById('cth_here');
-let gridelly=`<div class="grid grid-cols-2 gap-2">`
-
-if(json.topwear.length){
-  console.log(json.topwear[0].images[0].url)
-  gridelly=gridelly+`<div class='fou_div'>
-  <img class="h-auto max-w-full rounded-lg" src="${json.topwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
-</div>`
-
+  setTimeout(find_product, 4000);
+  setTimeout( scrolldwon,1700)
 }
-if(json.bottomwear.length){
-  console.log(json.bottomwear[0].images[0].url)
-  gridelly=gridelly+`<div class='fou_div'>
-  <img class="h-auto max-w-full rounded-lg" src="${json.bottomwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
-</div>`
-}
-if(json.footwear.length){
-  console.log(json.footwear[0].images[0].url)
-  gridelly=gridelly+`<div class='fou_div'>
-  <img class="h-auto max-w-full rounded-lg" src="${json.footwear[0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
-</div>`
-}
-if(json.accessories.length){
-  console.log(json.accessories[0][0].images[0].url)
-  gridelly=gridelly+`<div class='fou_div'>
-  <img class="h-auto max-w-full rounded-lg" src="${json.accessories[0][0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
-</div>`
-}
-
-gridelly=gridelly+`</div>`
-setloadingon(false)
-ch_lg.innerHTML=ch_lg.innerHTML+gridelly;
- }
- setloadingon(true)
  
- setTimeout(find_product, 2000);
- setTimeout( scrolldwon,10)
+ 
 
 }
 
@@ -102,6 +130,19 @@ ch_lg.innerHTML=ch_lg.innerHTML+gridelly;
       <div className="cth_here" id='cth_here'>
 
 </div>
+
+{/* <div className="bot_message">
+    <div className="bot_mess message_last">
+      Hello, how's it going?
+    </div>
+  </div>
+
+<div className="user_message">
+    <div className="user_mess message_last">
+      This is ussr message
+    </div>
+  </div> */}
+
      <div class={loadingon?'loading':'displaynone'}>
      <div className="grid grid-cols-2 gap-2">
 
