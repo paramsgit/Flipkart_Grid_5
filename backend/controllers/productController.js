@@ -388,8 +388,8 @@ exports.genoutfit = asyncErrorHandler(async (req, res, next) => {
 exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
     // Get the outfit object from the request body
     // const { topwear, bottomwear, footwear, accessories } = req.body;
-    // const model_response={ "topwear": {"category": "T-Shirt","subcategory": "Oversized","color":"White","tags":["Party","Stylish"]},"bottomwear": {"category": "Jeans","subcategory": "Straight","color":"Black","tags":["Straight"]},"footwear": {"category": "Shoes","subcategory": "Big","color":"Blue","tags":["Comfortable"]},"accessories": [{"category": "Watch","subcategory": "Smartwatch","color":"Black","tags":["Water Resistant"]},{"category": "Belt","subcategory": "Leather Belt","color":"brown","tags":["stylish"]}]}
-    let model_response={
+    let r1={ "topwear": {"category": "T-Shirt","subcategory": "Oversized","color":"White","tags":["Party","Stylish"]},"bottomwear": {"category": "Jeans","subcategory": "Straight","color":"Black","tags":["Straight"]},"footwear": {"category": "Shoes","subcategory": "Big","color":"Blue","tags":["Comfortable"]},"accessories": [{"category": "Watch","subcategory": "Smartwatch","color":"Black","tags":["Water Resistant"]},{"category": "Belt","subcategory": "Leather Belt","color":"brown","tags":["stylish"]}]}
+    let r2={
         "topwear": {
           "category": "Saree",
           "subcategory": "Traditional",
@@ -454,6 +454,8 @@ exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
         ]
       }
 
+      const model_response=r1;
+    
 
     const topwear = await Product.find({
         $and: [
@@ -506,7 +508,7 @@ exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
             
               
           }).sort({ "highlights": -1 });
-          console.log(a2)
+       
           accessories.push(a2); }
     
     res.json({"response":true,topwear,bottomwear,footwear,accessories})

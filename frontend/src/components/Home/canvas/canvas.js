@@ -70,9 +70,17 @@ const handlesend=async(e)=>{
   }
   if(json.accessories.length){
     console.log(json.accessories[0][0].images[0].url)
-    gridelly=gridelly+`<div class='fou_div'>
-    <img class="h-auto max-w-full rounded-lg" src="${json.accessories[0][0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
-  </div>`
+    let acc_size=json.accessories.length
+    for (let index = 0; index < acc_size; index++) {
+      if(json.accessories[index].length){
+        gridelly=gridelly+`<div class='fou_div'>
+        <img class="h-auto max-w-full rounded-lg" src="${json.accessories[index][0].images[0].url}" alt="${json.topwear[0].specifications.Category}" />
+      </div>`
+      }
+     
+      
+    }
+   
   }
   
   gridelly=gridelly+`</div>`
