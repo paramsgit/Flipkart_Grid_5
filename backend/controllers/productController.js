@@ -495,6 +495,7 @@ exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
       for(let i=0;i<model_response.accessories.length;i++){
  
         let a2 = await Product.find({
+            
             $and: [
                 { "specifications": { $elemMatch: { "title": "Category", "description": model_response.accessories[i].category } } },
                 { "specifications": { $elemMatch: { "title": "Subcategory", "description": model_response.accessories[i].subcategory } } },
@@ -505,7 +506,7 @@ exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
             
               
           }).sort({ "highlights": -1 });
-
+          console.log(a2)
           accessories.push(a2); }
     
     res.json({"response":true,topwear,bottomwear,footwear,accessories})
