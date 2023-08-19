@@ -385,9 +385,9 @@ exports.genoutfit = asyncErrorHandler(async (req, res, next) => {
   
 });
 
-exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
+exports.findoutfit = asyncErrorHandler(async (req, res) => {
     // Get the outfit object from the request body
-    // const { topwear, bottomwear, footwear, accessories } = req.body;
+    const user_input=req.body.user_input
     let r1={ "topwear": {"category": "T-Shirt","subcategory": "Oversized","color":"White","tags":["Party","Stylish"]},"bottomwear": {"category": "Jeans","subcategory": "Straight","color":"Black","tags":["Straight"]},"footwear": {"category": "Shoes","subcategory": "Big","color":"Blue","tags":["Comfortable"]},"accessories": [{"category": "Watch","subcategory": "Smartwatch","color":"Black","tags":["Water Resistant"]},{"category": "Belt","subcategory": "Leather Belt","color":"brown","tags":["stylish"]}]}
     let r2={
         "topwear": {
@@ -423,6 +423,40 @@ exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
           }
         ]
       }
+    let r4={
+        "topwear": {
+          "category": "Saree",
+          "subcategory": "Diwali",
+          "color": "Blue",
+          "tags": ["Silky"]
+        },
+        "bottomwear": {
+          "category": "",
+          "subcategory": "",
+          "color": "",
+          "tags": ["", ""]
+        },
+        "footwear": {
+          "category": "Sandles",
+          "subcategory": "Occasional",
+          "color": "Gold",
+          "tags": ["Comfortable", "Bright"]
+        },
+        "accessories": [
+          {
+            "category": "Jhumka",
+            "subcategory": "Traditional",
+            "color": "Silver",
+            "tags": ["Light", "Premium"]
+          },
+          {
+            "category": "Tikka",
+            "subcategory": "Metallic",
+            "color": "Silver",
+            "tags": ["Charming", "Traditional"]
+          }
+        ]
+      }
 
     let r3= {
         "topwear": {
@@ -454,8 +488,16 @@ exports.findoutfit = asyncErrorHandler(async (req, res, next) => {
         ]
       }
 
-      const model_response=r1;
-    
+      let model_response=r1;
+    if((user_input).toLowerCase().includes('party')){
+      model_response=r1;
+    }else if((user_input).toLowerCase().includes('karva')){
+        model_response=r2;
+      }else if((user_input).toLowerCase().includes('diwali for woman')){
+        model_response=r4;
+      }else if((user_input).toLowerCase().includes('diwali')){
+        model_response=r3;
+      }
 
     const topwear = await Product.find({
         $and: [
