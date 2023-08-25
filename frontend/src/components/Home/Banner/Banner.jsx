@@ -30,7 +30,7 @@ export const NextBtn = ({ className, onClick }) => {
 const Banner = () => {
 
   const settings = {
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     dots: false,
     infinite: true,

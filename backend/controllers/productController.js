@@ -351,153 +351,18 @@ function matchProduct(product, requestHighlights, requestSubcategories) {
   }
   
 
-//Generate outfit
-exports.genoutfit = asyncErrorHandler(async (req, res, next) => {
-    // Get the outfit object from the request body
-    const { topwear, bottomwear, footwear, accessories } = req.body;
-
-    if (!topwear || !bottomwear || !footwear || !accessories) {
-      return res.status(400).json({ message: 'Invalid input data' });
-    }
-
-    // Create arrays of highlights and subcategories from the request
-    const requestHighlights = [
-      topwear.category, bottomwear.category, footwear.category,
-      ...accessories.map(accessory => accessory.category)
-    ];
-
-    const requestSubcategories = [
-      topwear.subcategory, bottomwear.subcategory, footwear.subcategory,
-      ...accessories.map(accessory => accessory.subcategory)
-    ];
-    console.log(requestHighlights);
-    console.log(requestSubcategories);
-    const query = { highlights: { $in: requestHighlights} };
-    const  catproducts=await Product.find(query);
-    console.log(catproducts);
-    const filteredProducts = catproducts.filter(product =>
-        // console.log(product.subcategory)
-        product.subcategory.some(subcategory => requestSubcategories.includes(subcategory))
-    );
-
-    console.log(filteredProducts);
-    res.json(filteredProducts)
-  
-});
-
 exports.findoutfit = asyncErrorHandler(async (req, res) => {
     // Get the outfit object from the request body
     const user_input=req.body.user_input
-    let r1={ "topwear": {"category": "T-Shirt","subcategory": "Oversized","color":"White","tags":["Party","Stylish"]},"bottomwear": {"category": "Jeans","subcategory": "Straight","color":"Black","tags":["Straight"]},"footwear": {"category": "Shoes","subcategory": "Big","color":"Blue","tags":["Comfortable"]},"accessories": [{"category": "Watch","subcategory": "Smartwatch","color":"Black","tags":["Water Resistant"]},{"category": "Belt","subcategory": "Leather Belt","color":"brown","tags":["stylish"]}]}
-    let r2={
-        "topwear": {
-          "category": "Saree",
-          "subcategory": "Traditional",
-          "color": "Red",
-          "tags": ["Embroidered", "Elegant"]
-        },
-        "bottomwear": {
-          "category": "",
-          "subcategory": "",
-          "color": "",
-          "tags": ["", ""]
-        },
-        "footwear": {
-          "category": "Juttis",
-          "subcategory": "Embroidered",
-          "color": "Gold",
-          "tags": ["Comfortable", "Traditional"]
-        },
-        "accessories": [
-          {
-            "category": "Earrings",
-            "subcategory": "Jhumkas",
-            "color": "Green",
-            "tags": ["Statement", "Traditional"]
-          },
-          {
-            "category": "Bangles",
-            "subcategory": "Metallic",
-            "color": "Gold",
-            "tags": ["Stacked", "Traditional"]
-          }
-        ]
-      }
-    let r4={
-        "topwear": {
-          "category": "Saree",
-          "subcategory": "Diwali",
-          "color": "Blue",
-          "tags": ["Silky"]
-        },
-        "bottomwear": {
-          "category": "",
-          "subcategory": "",
-          "color": "",
-          "tags": ["", ""]
-        },
-        "footwear": {
-          "category": "Sandles",
-          "subcategory": "Occasional",
-          "color": "Gold",
-          "tags": ["Comfortable", "Bright"]
-        },
-        "accessories": [
-          {
-            "category": "Jhumka",
-            "subcategory": "Traditional",
-            "color": "Silver",
-            "tags": ["Light", "Premium"]
-          },
-          {
-            "category": "Tikka",
-            "subcategory": "Metallic",
-            "color": "Silver",
-            "tags": ["Charming", "Traditional"]
-          }
-        ]
-      }
-
-    let r3= {
-        "topwear": {
-          "category": "Kurta",
-          "subcategory": "Embroidered",
-          "color": "Cream",
-          "tags": ["Traditional", "Festive"]
-        },
-        "bottomwear": {
-          "category": "Dhoti",
-          "subcategory": "Silk",
-          "color": "White",
-          "tags": ["Traditional", "Comfortable"]
-        },
-        "footwear": {
-          "category": "Mojaris",
-          "subcategory": "Embroidered",
-          "color": "Gold",
-          "tags": ["Traditional", "Stylish"]
-        },
-        "accessories": [
-          {
-            "category": "Watch",
-            "subcategory": "Chained",
-            "color": "Gold",
-            "tags": ["Traditional", "Royal"]
-          }
-         
-        ]
-      }
-
-      let model_response=r1;
-    if((user_input).toLowerCase().includes('party')){
-      model_response=r1;
-    }else if((user_input).toLowerCase().includes('karva')){
-        model_response=r2;
-      }else if((user_input).toLowerCase().includes('diwali for woman')){
-        model_response=r4;
-      }else if((user_input).toLowerCase().includes('diwali')){
-        model_response=r3;
-      }
+ 
+    const model_response=await fetch(`http://localhost:8000/api/v1/outfit/Generator`,{
+      method:'POST',
+      headers:{
+          'Content-Type':'application/json',
+      },
+      body: JSON.stringify({user_input:user_input})
+      
+  });
 
     const topwear = await Product.find({
         $and: [
@@ -553,64 +418,6 @@ exports.findoutfit = asyncErrorHandler(async (req, res) => {
        
           accessories.push(a2); }
     
-    res.json({"response":true,topwear,bottomwear,footwear,accessories})
-  
-});
-exports.findoutfit2 = asyncErrorHandler(async (req, res, next) => {
-    // Get the outfit object from the request body
-    // const { topwear, bottomwear, footwear, accessories } = req.body;
-    const model_response={ "topwear": {"category": "Tshirts","color":"White","tags":["Puma","Men","Grey"]},"bottomwear": {"category": "Jeans","color":"Black","tags":["Party"]},"footwear": {"category": "Casual Shoes","color":"Blue","tags":["Comfortable"]},"accessories": [{"category": "Watches","color":"Black","tags":["Silver"]},{"category": "Belts","color":"Brown","tags":[""]}]}
-
-    const find_products=async(e)=>{
-        
-        const products = await Grid_products.aggregate([
-            {
-              $match: {
-                articleType: e.category,
-                baseColour: e.color,
-                
-              }
-            },
-            {
-              $addFields: {
-                keywordMatches: {
-                  $size: {
-                    $filter: {
-                      input: e.tags,
-                      as: "keyword",
-                      cond: {
-                        $regexMatch: {
-                          input: { $toLower: "$productDisplayName" },
-                          regex: { $toLower: "$$keyword" }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            {
-              $sort: {
-                keywordMatches: -1, // Sort by keyword matches in descending order
-                rating: -1, // Sort by rating in descending order
-                trend: -1 // Sort by trend in descending order
-              }
-            },{
-                $limit: 5 // Limit the result to the top 5 products
-              }
-          ]);
-          console.log(products)
-              return products;
-    }
-   
-    const topwear=await find_products(model_response.topwear)
-    const bottomwear=await find_products(model_response.bottomwear)
-    const footwear=await find_products(model_response.footwear)
-    const accessories=[]
-    for (let index = 0; index < model_response.accessories.length; index++) {
-        let acc=await find_products(model_response.accessories[index])
-        accessories.push(acc)
-    }
     res.json({"response":true,topwear,bottomwear,footwear,accessories})
   
 });
