@@ -2,7 +2,7 @@
 
 <div style="display:flex;justify-content:center;width:100%>
 
-![GIF](/frontend//src/assets/ReadmeFiles/Video.gif)
+![GIF](https://github.com/paramsgit/Flipkart_Grid_5/blob/main/frontend/src/assets/ReadmeFiles/Video.gif)
 
 </div>
 
