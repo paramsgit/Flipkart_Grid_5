@@ -17,10 +17,10 @@ platforms like Instagram, Pinterest, and fashion blogs.
 
 ## Project Features
 
-<div style="display:flex;justify-content:center;width:100%;margin:20px>
+
 
 ![Block Diagram 1](./frontend/src/assets/ReadmeFiles/Flow1.png)
-</div>
+
 
 ##
 
