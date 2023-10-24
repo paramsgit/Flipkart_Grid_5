@@ -1,8 +1,10 @@
 # Flipkart Grid 5.0
 
 
+<div style="text-align:center">
+  <img src="https://github.com/paramsgit/Flipkart_Grid_5/raw/main/frontend/src/assets/ReadmeFiles/Video.gif" alt="Animated GIF">
+</div>
 
-![ GIF](https://github.com/paramsgit/Flipkart_Grid_5/raw/main/frontend/src/assets/ReadmeFiles/Video.gif)
 
 
 
