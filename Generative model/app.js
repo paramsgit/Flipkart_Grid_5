@@ -5,7 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-// MONGO_URL=mongodb+srv://Nandu:9GNwcenrIsSmdMtf@cluster0.rl2kiej.mongodb.net/?retryWrites=true&w=majority
+
 
 
 // Routes
