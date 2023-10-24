@@ -1,10 +1,10 @@
 # Flipkart Grid 5.0
 
-<div style="display:flex;justify-content:center;width:100%>
+
 
 ![ GIF](https://github.com/paramsgit/Flipkart_Grid_5/raw/main/frontend/src/assets/ReadmeFiles/Video.gif)
 
-</div>
+
 
 ## Problem Statement
 
@@ -34,11 +34,10 @@ platforms like Instagram, Pinterest, and fashion blogs.
 
 ## Social Media Trend Analysis
 
-<div style="display:flex;justify-content:center;width:100%;margin:20px>
 
-![Block Diagram 1](https://github.com/paramsgit/Flipkart_Grid_5/raw/main/frontend/src/assets/ReadmeFiles/Flow3.png)
+![Block Diagram 1](./frontend/src/assets/ReadmeFiles/Flow3.png)
 
-</div>
+
 
 ##
 ### Data Collection
@@ -58,11 +57,10 @@ platforms like Instagram, Pinterest, and fashion blogs.
 ## Recommendation System
 
 
-<div style="display:flex;justify-content:center;width:100%;margin:20px>
 
 ![Block Diagram 1](https://github.com/paramsgit/Flipkart_Grid_5/raw/main/frontend/src/assets/ReadmeFiles/Flow2.png)
 
-</div>
+
 
 ##
 
