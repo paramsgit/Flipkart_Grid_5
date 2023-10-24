@@ -1,5 +1,11 @@
 # Flipkart Grid 5.0
 
+<div style="display:flex;justify-content:center;width:100%>
+
+![GIF](/frontend//src/assets/ReadmeFiles/Video.gif)
+
+</div>
+
 ## Problem Statement
 
 1. Gen AI-powered fashion outfit generator for Flipkart that revolutionizes the way users 
