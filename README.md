@@ -19,7 +19,7 @@ platforms like Instagram, Pinterest, and fashion blogs.
 
 <div style="display:flex;justify-content:center;width:100%;margin:20px>
 
-![Block Diagram 1](https://github.com/paramsgit/Flipkart_Grid_5/raw/main/frontend/src/assets/ReadmeFiles/Flow1.png)
+![Block Diagram 1](./frontend/src/assets/ReadmeFiles/Flow1.png)
 </div>
 
 ##
